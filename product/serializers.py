@@ -6,14 +6,23 @@ class ChildCategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
+        fields = ("id", "name",)
+
+class ChildProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
         fields = "__all__"
 
 class CategorySerializer(ModelSerializer):
-    child_category_obj = ChildCategorySerializer(source="category_set", many=True, read_only=True)
+    child_category_obj = ChildCategorySerializer(source="child_product",
+                                                 many=True, read_only=True)
+
+    product_obj = ChildProductSerializer(source="product_relate",
+                                               many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = "id", "name", "parent", "product_obj", "child_category_obj",
 
 class ProductSerializer(ModelSerializer):
     class Meta:

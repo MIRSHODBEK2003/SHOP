@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "rest_framework",
     "product",
+    "provider"
 ]
 
 REST_FRAMEWORK = {

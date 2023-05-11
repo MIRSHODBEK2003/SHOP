@@ -3,7 +3,7 @@ from django.db import models
 
 class Category(models.Model):
     parent = models.ForeignKey('Category', verbose_name="Kategoriyasi",
-                               null=True, blank=True, on_delete=models.PROTECT)
+                               null=True, blank=True, on_delete=models.PROTECT, related_name="child_product")
     name = models.CharField(verbose_name="Kategoriya nomi", max_length=255, null=False, blank=False)
 
     def __str__(self):
@@ -14,7 +14,7 @@ class Category(models.Model):
         verbose_name_plural = "Kategoriyalar"
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', verbose_name="Kategoriyasi", on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', verbose_name="Kategoriyasi", on_delete=models.CASCADE, related_name='product_relate')
     name = models.CharField(verbose_name="Mahsulot nomi", max_length=255)
     full_name = models.CharField(verbose_name="Mahsulotning to'liq nomi", max_length=200)
     price = models.DecimalField(verbose_name="Mahsulot narxi", max_digits=17, decimal_places=2)
